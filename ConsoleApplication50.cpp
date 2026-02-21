@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyDemoWeb</title>
+</head>
+<body>
+    <h2>Enter car's details </h2>
+ 
+    <input id = "power" type = "text" placeholder="Power ">
+    <input id = "model" type = "text" placeholder="Model ">
+    <input id = "mark" type = "text" placeholder="Mark ">
+    <input id = "VIN" type = "text" placeholder="VIN ">
+    <input id = "color" type = "text" placeholder="Color ">
+ 
+    <button onclick="submitCar()">Submit</button>
+ 
+    <p id = "label">Result will be here</p>
+    <script>
+        function submitCar()
+        {
+            const power = document.getElementById("power").value;
+	    const model = document.getElementById("model").value;
+	    const mark = document.getElementById("mark").value;
+	    const VIN = document.getElementById("VIN").value;
+	    const color = document.getElementById("color").value;
+            const params = "power=" + encodeURIComponent(power) + "&model=" + encodeURIComponent(model) + "&mark=" + encodeURIComponent(mark) + "&VIN=" + encodeURIComponent(VIN) + 
+"&color=" + encodeURIComponent(color);
+
+            fetch("/hello",{
+                method:"POST",
+                headers :{
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+		body : params
+            }).then(resp =>resp.text())
+            .then(text =>
+            {
+                document.getElementById("label").innerText = text;
+            })
+        }
+    </script>
+</body>
+</html>
